@@ -1,0 +1,12 @@
+{
+	"appId": "ai.caffeine.pixellift",
+	"appName": "PixelLift",
+	"webDir": "dist",
+	"backgroundColor": "#1a1a1c",
+	"android": {
+		"path": "../../android",
+		"backgroundColor": "#1a1a1c",
+		"allowMixedContent": false,
+		"webContentsDebuggingEnabled": false
+	}
+}

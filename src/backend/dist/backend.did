@@ -1,0 +1,156 @@
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UpscaleMode = 
+ variant {
+   balanced;
+   fast;
+   quality;
+ };
+type Timestamp = nat;
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type ModelStyle = 
+ variant {
+   anime;
+   general;
+   photo;
+   "text";
+ };
+type JobSummary = 
+ record {
+   createdAt: Timestamp;
+   fileName: text;
+   id: JobId;
+   mode: UpscaleMode;
+   modelStyle: ModelStyle;
+   resultHeight: nat;
+   resultWidth: nat;
+   scaleFactor: nat;
+   thumbnailBlob: ExternalBlob;
+ };
+type JobId = nat;
+type Job = 
+ record {
+   createdAt: Timestamp;
+   fileName: text;
+   id: JobId;
+   mode: UpscaleMode;
+   modelStyle: ModelStyle;
+   originalByteSize: nat;
+   originalHeight: nat;
+   originalWidth: nat;
+   resultBlob: ExternalBlob;
+   resultByteSize: nat;
+   resultHeight: nat;
+   resultWidth: nat;
+   scaleFactor: nat;
+   thumbnailBlob: ExternalBlob;
+ };
+type ExternalBlob = blob;
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type CreateJobInput = 
+ record {
+   fileName: text;
+   mode: UpscaleMode;
+   modelStyle: ModelStyle;
+   originalByteSize: nat;
+   originalHeight: nat;
+   originalWidth: nat;
+   resultBlob: ExternalBlob;
+   resultByteSize: nat;
+   resultHeight: nat;
+   resultWidth: nat;
+   scaleFactor: nat;
+   thumbnailBlob: ExternalBlob;
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  /// Persist a completed upscaling job for the signed-in caller.
+  createJob: (input: CreateJobInput) -> (JobId);
+  /// Delete one of the caller's jobs by id.
+  deleteJob: (id: JobId) -> (bool);
+  execute: (qJson: text) -> (Result) query;
+  /// Return the backend's public API documentation as Markdown.
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  /// Fetch one of the caller's jobs by id.
+  getJob: (id: JobId) -> (opt Job) query;
+  /// Fetch the thumbnail blob for one of the caller's jobs.
+  getThumbnail: (id: JobId) -> (opt ExternalBlob) query;
+  isCallerAdmin: () -> (bool) query;
+  /// List the caller's jobs, newest first.
+  listJobs: () -> (vec JobSummary) query;
+  schema: () -> (text) query;
+}

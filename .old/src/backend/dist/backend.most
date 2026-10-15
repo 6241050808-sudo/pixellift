@@ -1,0 +1,103 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type ExternalBlob__220559234 = Blob;
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type JobId__290908983 = Nat;
+type JobId__339598917 = Nat;
+type JobId__567733654 = JobId__339598917;
+type Job__662725028 =
+  {
+    createdAt : Nat;
+    fileName : Text;
+    id : JobId__290908983;
+    mode : UpscaleMode__340717588;
+    modelStyle : ModelStyle__448346900;
+    originalByteSize : Nat;
+    originalHeight : Nat;
+    originalWidth : Nat;
+    resultBlob : Blob;
+    resultByteSize : Nat;
+    resultHeight : Nat;
+    resultWidth : Nat;
+    scaleFactor : Nat;
+    thumbnailBlob : Blob
+  };
+type Job__848768964 =
+  {
+    createdAt : Timestamp__838678315;
+    fileName : Text;
+    id : JobId__567733654;
+    mode : UpscaleMode__569472459;
+    modelStyle : ModelStyle__387333582;
+    originalByteSize : Nat;
+    originalHeight : Nat;
+    originalWidth : Nat;
+    resultBlob : ExternalBlob__220559234;
+    resultByteSize : Nat;
+    resultHeight : Nat;
+    resultWidth : Nat;
+    scaleFactor : Nat;
+    thumbnailBlob : ExternalBlob__220559234
+  };
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type List__355132335<T> =
+  {
+    var blockIndex : Nat__227979830;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__227979830
+  };
+type List__836382695<T> = List__355132335<T>;
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type ModelStyle__387333582 = {#anime; #general; #photo; #text};
+type ModelStyle__448346900 = {#anime; #general; #photo; #text};
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__416819158 =
+  {
+    accessControlState : AccessControlState__201339279;
+    userJobs : Map__230067015<Principal, UserJobs__986662306>
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type OldActor__712515976 = {};
+type Timestamp__301639476 = Nat;
+type Timestamp__838678315 = Timestamp__301639476;
+type UpscaleMode__340717588 = {#balanced; #fast; #quality};
+type UpscaleMode__569472459 = {#balanced; #fast; #quality};
+type UserJobs__229732166 =
+  {
+    jobs : Map__230067015<JobId__567733654, Job__848768964>;
+    var nextId : JobId__567733654;
+    order : List__836382695<JobId__567733654>
+  };
+type UserJobs__986662306 =
+  {
+    jobs : Map__230067015<JobId__290908983, Job__662725028>;
+    var nextId : JobId__290908983;
+    order : List__836382695<JobId__290908983>
+  };
+type UserRole__91647283 = {#admin; #guest; #user};
+{
+  "20261015_000000" : OldActor__712515976 -> NewActor__416819158
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable userJobs :
+    {
+      var root : Node__204828119<Principal, UserJobs__229732166>;
+      var size : Nat__227979830
+    }
+};

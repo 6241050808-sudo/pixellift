@@ -1,0 +1,19 @@
+{
+  "overview": "PixelLift is a dark-themed Thai image upscaling studio that sharpens and enlarges photos, with a job history and an Android APK build pipeline via GitHub Actions.",
+  "features": [
+    "Upscale and sharpen images in the browser",
+    "Save and review past jobs in History",
+    "Build an Android APK automatically with GitHub Actions",
+    "Download the latest APK from GitHub Releases",
+    "Thai-language dark interface"
+  ],
+  "category": "image-tool",
+  "tags": [
+    "image",
+    "upscaling",
+    "android",
+    "apk",
+    "github-actions"
+  ],
+  "last_updated": "2026-10-15T12:32:28.178Z"
+}

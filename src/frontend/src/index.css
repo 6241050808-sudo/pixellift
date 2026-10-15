@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/DMSans.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --font-display: "Space Grotesk", "Noto Sans Thai", "IBM Plex Sans Thai",
+      sans-serif;
+    --font-body: "DM Sans", "Noto Sans Thai", "IBM Plex Sans Thai", sans-serif;
+    --font-mono: "Geist Mono", monospace;
+    --radius: 0.75rem;
+
+    /* PixelLift is a dark-first studio; light values kept AA+ for completeness */
+    --background: 0.99 0.002 260;
+    --foreground: 0.17 0.006 260;
+    --card: 1.0 0 0;
+    --card-foreground: 0.17 0.006 260;
+    --popover: 1.0 0 0;
+    --popover-foreground: 0.17 0.006 260;
+
+    --primary: 0.62 0.19 118;
+    --primary-foreground: 0.16 0.02 118;
+
+    --secondary: 0.95 0.004 260;
+    --secondary-foreground: 0.28 0.006 260;
+    --muted: 0.95 0.004 260;
+    --muted-foreground: 0.5 0.008 260;
+
+    --accent: 0.62 0.19 118;
+    --accent-foreground: 0.16 0.02 118;
+
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.98 0.005 25;
+
+    --success: 0.6 0.16 150;
+    --warning: 0.75 0.15 85;
+
+    --border: 0.9 0.004 260;
+    --input: 0.9 0.004 260;
+    --ring: 0.62 0.19 118;
+
+    --chart-1: 0.62 0.19 118;
+    --chart-2: 0.6 0.12 185;
+    --chart-3: 0.4 0.07 227;
+    --chart-4: 0.83 0.19 84;
+    --chart-5: 0.77 0.19 70;
+
+    --sidebar: 0.98 0.003 260;
+    --sidebar-foreground: 0.17 0.006 260;
+    --sidebar-primary: 0.62 0.19 118;
+    --sidebar-primary-foreground: 0.16 0.02 118;
+    --sidebar-accent: 0.95 0.004 260;
+    --sidebar-accent-foreground: 0.28 0.006 260;
+    --sidebar-border: 0.9 0.004 260;
+    --sidebar-ring: 0.62 0.19 118;
+  }
+
+  .dark {
+    /* Near-black neutral studio surfaces — the image is the only saturated thing on screen */
+    --background: 0.13 0.004 260;
+    --foreground: 0.95 0.004 260;
+    --card: 0.175 0.005 260;
+    --card-foreground: 0.95 0.004 260;
+    --popover: 0.2 0.006 260;
+    --popover-foreground: 0.95 0.004 260;
+
+    /* Single confident accent: electric chartreuse-lime */
+    --primary: 0.88 0.2 118;
+    --primary-foreground: 0.16 0.02 118;
+
+    --secondary: 0.23 0.006 260;
+    --secondary-foreground: 0.86 0.004 260;
+    --muted: 0.23 0.006 260;
+    --muted-foreground: 0.58 0.008 260;
+
+    --accent: 0.88 0.2 118;
+    --accent-foreground: 0.16 0.02 118;
+
+    --destructive: 0.65 0.19 22;
+    --destructive-foreground: 0.13 0.004 260;
+
+    --success: 0.72 0.16 150;
+    --warning: 0.8 0.15 85;
+
+    --border: 0.28 0.006 260;
+    --input: 0.28 0.006 260;
+    --ring: 0.88 0.2 118;
+
+    --chart-1: 0.88 0.2 118;
+    --chart-2: 0.7 0.17 162;
+    --chart-3: 0.77 0.19 70;
+    --chart-4: 0.63 0.27 304;
+    --chart-5: 0.65 0.25 16;
+
+    --sidebar: 0.155 0.005 260;
+    --sidebar-foreground: 0.95 0.004 260;
+    --sidebar-primary: 0.88 0.2 118;
+    --sidebar-primary-foreground: 0.16 0.02 118;
+    --sidebar-accent: 0.23 0.006 260;
+    --sidebar-accent-foreground: 0.86 0.004 260;
+    --sidebar-border: 0.28 0.006 260;
+    --sidebar-ring: 0.88 0.2 118;
+
+    /* Gradients, canvas treatments, motion tokens */
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.9 0.19 122) 0%,
+      oklch(0.82 0.2 112) 100%
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.2 0.006 260) 0%,
+      oklch(0.13 0.004 260) 100%
+    );
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --checker-a: oklch(0.2 0.004 260);
+    --checker-b: oklch(0.24 0.004 260);
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  /* Neutral checkerboard backdrop for image canvases (transparency + low-res preview) */
+  .canvas-checkerboard {
+    background-color: var(--checker-a);
+    background-image: linear-gradient(
+        45deg,
+        var(--checker-b) 25%,
+        transparent 25%
+      ), linear-gradient(-45deg, var(--checker-b) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--checker-b) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--checker-b) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  }
+
+  .canvas-checkerboard-sm {
+    background-color: var(--checker-a);
+    background-image: linear-gradient(
+        45deg,
+        var(--checker-b) 25%,
+        transparent 25%
+      ), linear-gradient(-45deg, var(--checker-b) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--checker-b) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--checker-b) 75%);
+    background-size: 12px 12px;
+    background-position: 0 0, 0 6px, 6px -6px, -6px 0px;
+  }
+
+  .gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+  .gradient-subtle {
+    background-image: var(--gradient-subtle);
+  }
+}

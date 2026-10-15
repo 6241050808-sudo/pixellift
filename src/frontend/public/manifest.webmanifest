@@ -1,0 +1,27 @@
+{
+  "name": "PixelLift — สตูดิโอเพิ่มความละเอียดภาพ",
+  "short_name": "PixelLift",
+  "description": "เพิ่มความละเอียดและความคมชัดของภาพในเบราว์เซอร์ของคุณ",
+  "lang": "th",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#1a1a1c",
+  "theme_color": "#1a1a1c",
+  "icons": [
+    {
+      "src": "/assets/generated/app-icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/generated/app-icon-foreground.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
